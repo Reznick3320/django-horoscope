@@ -1,3 +1,4 @@
+from urllib import response
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 
@@ -13,6 +14,20 @@ week_days_dict = {
     'sunday': 'Список дел воскресенье',
 
 }
+
+def index(request):
+    days = list(week_days_dict)
+    li_element = ''
+    for sing in days:
+        redirect_path = reverse('name_day', args=([sing]))
+        li_element += f"<li><a href='{redirect_path}'>{sing.title()}</a></li>"
+
+    response = f"""
+    <ol>
+        {li_element}
+    </ol>
+    """
+    return HttpResponse(response)
 
 def get_info_about_week_day(request, sing_day: str):
     description = week_days_dict.get(sing_day, None)
