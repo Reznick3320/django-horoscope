@@ -1,12 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'horoscope/base.html' %}
+{% block title %}
+    Гороскоп для {{ sing }}
+{% endblock title %}
+
+{% block content %}
+    {% include 'includes/navbar.html' %}
     <h1>Приложение гороскоп</h1>
-</body>
-</html>
+    {% if description_zodiac is None %}
+        <h2>Неправельный знак зодиака - {{ sing|capfirst }}</h2>
+    {% else %}
+        <h2> {{ description_zodiac }} </h2>
+    {% endif %}
+{% endblock  %}
+
+
+    

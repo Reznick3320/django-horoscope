@@ -1,0 +1,15 @@
+{% extends 'horoscope/base.html' %}
+
+{% block title %}
+    Меню
+{% endblock title %}
+
+{% block content %}
+
+    {% include 'includes/navbar.html' %}
+    <ul>
+        {% for zodiac in zodiacs %}
+            <li><a href="{% url 'horoscope_name' sing_zodiak=zodiac %}"> {{ forloop.counter}}.  {{ zodiac|title }}  </a></li>
+        {% endfor %}
+    </ul>
+{% endblock  %}

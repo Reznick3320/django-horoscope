@@ -1,5 +1,7 @@
+from os import rename
 from urllib import response
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
 
 # Create your views here.
@@ -7,34 +9,28 @@ from django.urls import reverse
 week_days_dict = {
     'monday': 'Список дел Понедельник',
     'tuesday': 'Список дел Вторник',
-    'wednesday': 'Список дел среда',
-    'thursday': 'Список дел четверг',
-    'friday': 'Список дел пятница',
-    'saturday': 'Список дел суббота',
-    'sunday': 'Список дел воскресенье',
+    'wednesday': 'Список дел Среда',
+    'thursday': 'Список дел Четверг',
+    'friday': 'Список дел Пятница',
+    'saturday': 'Список дел Суббота',
+    'sunday': 'Список дел Воскресенье',
 
 }
 
 def index(request):
     days = list(week_days_dict)
-    li_element = ''
-    for sing in days:
-        redirect_path = reverse('name_day', args=([sing]))
-        li_element += f"<li><a href='{redirect_path}'>{sing.title()}</a></li>"
-
-    response = f"""
-    <ol>
-        {li_element}
-    </ol>
-    """
-    return HttpResponse(response)
+    context = {
+        'days': days
+    }
+    return render(request, 'week_days/index.html', context=context)
 
 def get_info_about_week_day(request, sing_day: str):
-    description = week_days_dict.get(sing_day, None)
-    if description:
-        return HttpResponse(f'День недели - {sing_day}')
-    else:
-        return HttpResponseNotFound(f'Нет такого дня недели - {sing_day}')
+    description = week_days_dict.get(sing_day)
+    data = {
+        'description_days': description,
+        'sing': sing_day
+    }
+    return render(request, 'week_days/info_days.html', context=data)
     
 def get_info_about_week_day_bu_number(request, sing_day: int):
     day = list(week_days_dict)
