@@ -1,11 +1,16 @@
 {% extends 'horoscope/base.html' %}
+{% load static %}
 {% block title %}
     Гороскоп для {{ sing }}
 {% endblock title %}
 
+{% block block_css %}
+    <link rel="stylesheet" href="{% static 'horoscope/css/info.css' %}">
+{% endblock %}
+
 {% block content %}
     {% include 'includes/navbar.html' %}
-    <h1>Приложение гороскоп</h1>
+    <h1>{{ sing_name }}</h1>
     {% if description_zodiac is None %}
         <h2>Неправельный знак зодиака - {{ sing|capfirst }}</h2>
     {% else %}

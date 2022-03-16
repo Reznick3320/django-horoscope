@@ -28,8 +28,11 @@ def index(request):
 
 def get_info_about_sing_zodiac(request, sing_zodiak):
     description = zodiac_gict.get(sing_zodiak)
+    zodiacs = list(zodiac_gict)
     data = {
         'description_zodiac': description,
-        'sing': sing_zodiak.title()
+        'sing': sing_zodiak.title(),
+        'sing_name': description.split()[0],
+        'zodiacs': zodiacs,
     }
     return render(request, 'horoscope/info_zodiac.html', context=data)
